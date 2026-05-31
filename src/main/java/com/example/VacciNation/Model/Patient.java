@@ -1,11 +1,11 @@
 package com.example.VacciNation.Model;
 
 import com.example.VacciNation.Enum.Gender;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +21,9 @@ public class Patient {
     private String name;
 
     private int age;
+
+    @JsonSetter(nulls = Nulls.SKIP)
+    private boolean vaccinated;
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;

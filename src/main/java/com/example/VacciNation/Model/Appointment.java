@@ -18,7 +18,7 @@ public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String appointmentID;
 
@@ -26,5 +26,15 @@ public class Appointment {
 
     @Enumerated(value = EnumType.STRING)
     private AppointmentStatus appointmentStatus;
+
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    Doctor doctor;
+
+    @OneToOne
+    @JoinColumn(name = "patient_id")
+    Patient patient;
+
 
 }

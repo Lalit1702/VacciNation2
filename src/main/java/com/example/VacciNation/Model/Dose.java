@@ -19,16 +19,20 @@ import java.util.Date;
 public class Dose {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Enumerated(value = EnumType.STRING)
     private VaccineBrand vaccineBrand;
 
     private String SerialNUmber; //UUID
 
-    private boolean taken;
+
 
 
     @CreationTimestamp
     private Date dateOfVaccination;
+
+    @OneToOne
+    @JoinColumn(name = "patient_id")
+    Patient patient;
 }
