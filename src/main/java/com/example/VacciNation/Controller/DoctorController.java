@@ -22,4 +22,10 @@ public class DoctorController {
     public Doctor getDoctor(@RequestParam("id") int id){
         return doctorService.getDoctor(id);
     }
+
+    @DeleteMapping("/delete-doctor")
+    public String deleteDoctor(@RequestParam("id") int id){
+        doctorService.deleteDoctor(id);
+        return "Doctor Has been Deleted Successfully";
+    }
 }

@@ -6,6 +6,7 @@ import com.example.VacciNation.Model.Patient;
 import com.example.VacciNation.Repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.Optional;
 
@@ -25,5 +26,10 @@ public class DoctorService {
         }
         Doctor doctor = optionalDoctor.get();
         return doctor;
+    }
+
+
+    public void deleteDoctor(int id) {
+        doctorRepository.deleteById(id);
     }
 }

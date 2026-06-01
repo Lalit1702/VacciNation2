@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
 
@@ -20,8 +21,9 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String appointmentID;
+    private String appointmentID; //UUID generation
 
+    @CreationTimestamp
     private Date dateOfAppointment;
 
     @Enumerated(value = EnumType.STRING)
