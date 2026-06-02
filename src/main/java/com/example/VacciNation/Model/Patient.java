@@ -22,7 +22,6 @@ public class Patient {
 
     private int age;
 
-    @JsonSetter(nulls = Nulls.SKIP)
     private boolean vaccinated;
 
     @Enumerated(value = EnumType.STRING)

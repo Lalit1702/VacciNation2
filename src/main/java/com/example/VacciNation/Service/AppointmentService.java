@@ -1,5 +1,7 @@
 package com.example.VacciNation.Service;
 
+import com.example.VacciNation.DTO.Response.AppointmentResponse;
+import com.example.VacciNation.DTO.Response.PatientResponse;
 import com.example.VacciNation.Enum.AppointmentStatus;
 import com.example.VacciNation.Exception.DoctorNotFoundException;
 import com.example.VacciNation.Exception.PatientNotFoundException;
@@ -27,7 +29,7 @@ public class AppointmentService {
     @Autowired
     PatientRepository patientRepository;
 
-    public Appointment bookAppointment(int patientId, int doctorId) throws PatientNotFoundException {
+    public AppointmentResponse bookAppointment(int patientId, int doctorId) throws PatientNotFoundException {
         Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
 
         if(optionalDoctor.isEmpty()){
@@ -44,16 +46,38 @@ public class AppointmentService {
 
         Patient patient = optionalPatient.get();
 
+        PatientResponse patientResponse = new PatientResponse();
+        patientResponse.setEmailId(patient.getEmailId());
+        patientResponse.setName(patient.getName());
+        patientResponse.setVaccinated(patient.isVaccinated());
+
+
         Appointment appointment = new Appointment();
         appointment.setAppointmentID(String.valueOf(UUID.randomUUID()));
         appointment.setAppointmentStatus(AppointmentStatus.BOOKED);
         appointment.setDoctor(doctor);
         appointment.setPatient(patient);
 
-        return appointmentRepository.save(appointment);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        AppointmentResponse appointmentResponse = new AppointmentResponse();
+        appointmentResponse.setAppointmentID(savedAppointment.getAppointmentID());
+        appointmentResponse.setDateOfAppointment(savedAppointment.getDateOfAppointment());
+        appointmentResponse.setAppointmentStatus(savedAppointment.getAppointmentStatus());
+        appointmentResponse.setPatientResponse(patientResponse);
+        appointmentResponse.setDoctorName(savedAppointment.getDoctor().getName());
 
 
+        return appointmentResponse;
 
+        //convert all API to DTO
+        //Improvisation in project
+        //get all vaccinated patients above age 30
+        //get all unvaccinated MALES/FEMALES
+        //change the vaccinated status for all the patients
+
+        //get all the appointments with a particular doctor
+        //make API to change the status of appointment
+        //get appointment details of a particular patient
 
 
     }

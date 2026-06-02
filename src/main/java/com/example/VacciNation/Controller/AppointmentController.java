@@ -1,5 +1,6 @@
 package com.example.VacciNation.Controller;
 
+import com.example.VacciNation.DTO.Response.AppointmentResponse;
 import com.example.VacciNation.Exception.PatientNotFoundException;
 import com.example.VacciNation.Model.Appointment;
 import com.example.VacciNation.Service.AppointmentService;
@@ -21,7 +22,7 @@ public class AppointmentController {
     @PostMapping("/book-appointment")
     public ResponseEntity bookAppointment(@RequestParam("patientid") int patientId, @RequestParam("doctorid") int doctorId){
         try{
-            Appointment bookedAppointment = appointmentService.bookAppointment(patientId,doctorId);
+            AppointmentResponse bookedAppointment = appointmentService.bookAppointment(patientId,doctorId);
             return new ResponseEntity<>(bookedAppointment, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
